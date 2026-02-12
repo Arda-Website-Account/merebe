@@ -3,268 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Süper Satürn'e Yolculuk</title>
+    <title>Süper Satürn'e Mesaj Var 🪐</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Dancing+Script:wght@600&display=swap');
+        /* Google Fontları */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Pacifico&display=swap');
 
-        body, html {
+        body {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; /* Kaydırma çubuklarını gizle */
+            background: radial-gradient(circle at center, #1a0b2e, #000000);
             font-family: 'Orbitron', sans-serif;
             color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            text-align: center;
         }
 
-        /* Yıldızlar */
+        /* Arka Plan Yıldızları */
         .stars {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
             pointer-events: none;
+            z-index: 0;
         }
-
+        
         .star {
             position: absolute;
             background: white;
             border-radius: 50%;
-            opacity: 0.8;
             animation: twinkle var(--duration) infinite ease-in-out;
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            0%, 100% { opacity: 0.2; }
             50% { opacity: 1; transform: scale(1.2); }
         }
 
-        /* Hikaye Kutusu */
-        .container {
+        /* Ana Kutu Tasarımı */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(123, 31, 162, 0.6);
+            max-width: 90%;
+            width: 400px;
             z-index: 10;
-            text-align: center;
             position: relative;
-            max-width: 800px;
-            padding: 20px;
         }
 
         h1 {
-            font-size: 3rem;
-            text-shadow: 0 0 20px #e0c3fc;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeIn 2s forwards;
+            font-family: 'Pacifico', cursive;
+            color: #e0b0ff;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #e0b0ff;
         }
 
-        .message {
-            font-size: 1.5rem;
+        p {
+            font-size: 1.1rem;
             line-height: 1.6;
-            min-height: 100px;
             margin-bottom: 30px;
-            opacity: 0;
-            transition: opacity 1s ease;
         }
 
-        .btn {
-            background: linear-gradient(45deg, #ff00cc, #333399);
-            border: none;
-            padding: 15px 40px;
-            color: white;
-            font-size: 1.2rem;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 0 15px #ff00cc;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px #ff00cc;
-        }
-
-        /* Satürn Animasyonu */
-        .saturn-container {
-            position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 0 auto 30px;
-            display: none; /* Başlangıçta gizli */
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .planet {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #f4d03f, #8e44ad);
-            border-radius: 50%;
-            position: absolute;
-            top: 40px;
-            left: 40px;
-            box-shadow: inset -20px -20px 50px rgba(0,0,0,0.5), 0 0 20px rgba(244, 208, 63, 0.4);
-            z-index: 2;
-        }
-
-        .ring {
-            width: 200px;
-            height: 40px;
-            border: 20px solid rgba(255, 255, 255, 0.4);
-            border-top: 20px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            position: absolute;
-            top: 80px;
-            left: 0;
-            transform: rotateX(75deg) rotateY(10deg);
-            z-index: 1;
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
-        }
-
-        .ring::before {
-             /* Halkanın gezegenin önünde kalan kısmı için z-index hilesi */
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 20px solid transparent;
-            border-bottom: 20px solid rgba(224, 195, 252, 0.8);
-            top: -20px;
-            left: -20px;
-            z-index: 3;
+        .planet-icon {
+            font-size: 5rem;
+            display: block;
+            margin: 0 auto 20px;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+            animation: float 3s ease-in-out infinite;
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(2deg); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
+        /* Butonlar */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            height: 60px; /* Buton kaçarken düzen bozulmasın diye */
         }
 
-        /* Final Ekranı için Kalp */
-        .heart {
-            color: #ff3366;
-            font-size: 5rem;
-            animation: beat 1s infinite;
+        button {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            transition: 0.3s;
+            outline: none;
+        }
+
+        #yesBtn {
+            background: linear-gradient(45deg, #ff0099, #493240);
+            color: white;
+            box-shadow: 0 0 15px #ff0099;
+            z-index: 2;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #ff0099;
+        }
+
+        #noBtn {
+            background: #555;
+            color: #ccc;
+            position: relative; /* JavaScript ile absolute olacak */
+            z-index: 1;
+        }
+
+        /* Gizli Mesaj */
+        #success {
             display: none;
-            font-family: 'Dancing Script', cursive;
         }
 
-        @keyframes beat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        /* Kalp Animasyonu */
+        .heart {
+            position: fixed;
+            color: #ff0055;
+            font-size: 2rem;
+            animation: rise 4s linear forwards;
+            z-index: 100;
         }
 
-        .hidden { display: none; }
-        .visible { display: block; }
+        @keyframes rise {
+            to { transform: translateY(-110vh) rotate(720deg); opacity: 0; }
+        }
 
     </style>
 </head>
 <body>
 
-    <div class="stars" id="starsContainer"></div>
+    <div class="stars" id="stars"></div>
 
-    <div class="container">
-        <div class="saturn-container" id="saturn">
-            <div class="planet"></div>
-            <div class="ring"></div>
-        </div>
-
-        <h1 id="title">Merhaba Aleyna...</h1>
-        <div class="message" id="storyText"></div>
+    <div class="card" id="questionCard">
+        <div class="planet-icon">🪐</div>
+        <h1>Hey Aleyna!</h1>
+        <p>
+            Uzay boşluğunda süzülürken radarıma takılan en güzel şeysin.<br><br>
+            Benim <b>Valentine'ım</b> (Sevgilim) olur musun <b>Süper Satürn?</b> 🚀❤️
+        </p>
         
-        <button class="btn" id="actionBtn" onclick="nextStep()">Yolculuğu Başlat 🚀</button>
-        <div id="finalHeart" class="heart">❤️</div>
+        <div class="btn-group">
+            <button id="yesBtn" onclick="sheSaidYes()">EVET!</button>
+            <button id="noBtn" onmouseover="kac()" ontouchstart="kac()">Hayır</button>
+        </div>
+    </div>
+
+    <div class="card" id="success">
+        <div class="planet-icon">👩‍🚀❤️👨‍🚀</div>
+        <h1>Yeyyy! 🥳</h1>
+        <p>
+            Biliyordum! Yer çekimine karşı koyamazsın. <br>
+            Seni seviyorum Süper Satürn'üm! <br><br>
+            (Zaten 'Hayır' tuşu bozuktu şşşt 😉)
+        </p>
     </div>
 
     <script>
-        // Yıldızları oluşturma
-        const starsContainer = document.getElementById('starsContainer');
-        for(let i=0; i<150; i++){
-            const star = document.createElement('div');
+        // Yıldızları oluştur
+        const starsContainer = document.getElementById('stars');
+        for(let i=0; i<100; i++) {
+            let star = document.createElement('div');
             star.className = 'star';
             star.style.left = Math.random() * 100 + '%';
             star.style.top = Math.random() * 100 + '%';
             star.style.width = Math.random() * 3 + 'px';
             star.style.height = star.style.width;
-            star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+            star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
             starsContainer.appendChild(star);
         }
 
-        // Hikaye verileri
-        const steps = [
-            {
-                text: "Uzay... Sonsuz, karanlık ve sessiz bir boşluktu.",
-                action: "Devam Et"
-            },
-            {
-                text: "Ta ki benim radarımda o eşsiz parıltı belirene kadar.",
-                action: "Neydi o?"
-            },
-            {
-                text: "Milyarlarca yıldızın arasında, yer çekimine karşı koyamadığım tek gezegen...",
-                action: "Yaklaş"
-            },
-            {
-                text: "Rengarenk halkalarıyla beni kendine çeken, evrenimdeki en güzel gök cismi.",
-                action: "Kim o?"
-            },
-            {
-                text: "O sensin Aleyna. Benim biricik Süper Satürn'üm.",
-                action: "❤️",
-                showSaturn: true
-            },
-            {
-                final: true,
-                title: "Sevgililer Günün Kutlu Olsun!",
-                text: "Senin yörüngende olmak, başıma gelen en güzel şey. İyi ki varsın Süper Satürn'üm.",
-                action: "Seni Seviyorum" // Buton gizlenecek
-            }
-        ];
+        // Kaçan Buton Fonksiyonu
+        const noBtn = document.getElementById('noBtn');
+        const phrases = ["Yakalayamazsın!", "Ciddi misin?", "O tuş bozuk!", "Hadi canım!", "İmkansız!", "Dene Bakalım!"];
 
-        let currentStep = -1;
-        const titleEl = document.getElementById('title');
-        const textEl = document.getElementById('storyText');
-        const btnEl = document.getElementById('actionBtn');
-        const saturnEl = document.getElementById('saturn');
-        const heartEl = document.getElementById('finalHeart');
+        function kac() {
+            // Ekran sınırlarını al
+            const maxX = window.innerWidth - 100;
+            const maxY = window.innerHeight - 50;
 
-        function nextStep() {
-            currentStep++;
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            // Butonu yeni konuma taşı
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
             
-            // Metin animasyonu için önce gizle sonra göster
-            textEl.style.opacity = 0;
-            
-            if (currentStep < steps.length) {
-                setTimeout(() => {
-                    const data = steps[currentStep];
+            // Rengini ve yazısını değiştir
+            noBtn.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+            noBtn.style.background = "#ff4444";
+            noBtn.style.color = "white";
+        }
 
-                    if(data.showSaturn) {
-                        saturnEl.style.display = 'block';
-                        titleEl.innerText = "Süper Satürn";
-                    }
+        // Evet denilince
+        function sheSaidYes() {
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+            startConfetti();
+        }
 
-                    if(data.final) {
-                        titleEl.innerText = data.title;
-                        titleEl.style.fontFamily = "'Dancing Script', cursive";
-                        titleEl.style.color = "#ff66b2";
-                        btnEl.style.display = 'none';
-                        heartEl.style.display = 'block';
-                    }
-
-                    textEl.innerText = data.text;
-                    btnEl.innerText = data.action;
-                    textEl.style.opacity = 1;
-                }, 500);
-            }
+        // Kalp Yağmuru
+        function startConfetti() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = Math.random() * 30 + 10 + 'px';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 4000);
+            }, 100);
         }
     </script>
 </body>
