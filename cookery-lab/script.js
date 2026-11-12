@@ -73,6 +73,61 @@ const QUESTIONS=FACTS.flatMap(function(fact){
   ];
   return prompts.map(function(prompt,v){var opt=makeOptions(fact,v);return {id:fact.id+"q"+v,factId:fact.id,unit:fact.unit,type:QUESTION_TYPES[v],prompt:prompt,hint:hints[v],choices:opt.choices,answer:opt.answer,term:fact.term,tr:fact.tr,def:fact.def,trDef:fact.trDef,note:fact.note};});
 });
+// These 27 items reproduce ONLY the prompts on the two uploaded notebook pages.
+// Matching exercise choices are kept together; the five Unit 2 pairs stay as pairs.
+const NOTE_GROUPS=[
+{unit:1,choices:["dishwasher","oven","cook","appliances"],items:[
+["We wash our pots and pans in the appliance for cleaning dishes. Which appliance is this?","dishwasher"],
+["The appliance that heats food in an enclosed area. Which appliance is this?","oven"],
+["It's difficult to apply heat to anything when the electricity is out. Which verb means to apply heat to food?","cook"],
+["The kitchen supply company sells many different machines that perform particular functions. What are they called?","appliances"]
+]},
+{unit:2,items:[
+["The new ___ keeps getting eggs stuck to the pan. Choose the word on your notebook page.","fry cook",["baker","fry cook"]],
+["Ask the ___ if the carrots should be steamed or boiled.","vegetable cook",["cook's helper","vegetable cook"]],
+["Tell the ___ that we need the dessert menu right away. Choose the answer circled in your notes.","first cook",["pastry chef","first cook"]],
+["The ___ is upset because the oven is broken.","broiler cook",["dishwasher","broiler cook"]],
+["The new ___ is responsible for vegetables, salads, and cold meats.","chef",["baker","chef"]]
+]},
+{unit:3,choices:["busser","manager","waitstaff","front of house","bartender","host"],items:[
+["A person who clears tables.","busser"],
+["A person who supervises a restaurant.","manager"],
+["Relating to a restaurant's public area.","front of house"],
+["People who take orders and serve food.","waitstaff"],
+["A person who prepares drinks.","bartender"],
+["A person who greets and seats customers.","host"]
+]},
+{unit:4,choices:["bench knife","paring knife","knife","butcher knife","utensil"],items:[
+["A wide, rectangular blade for dividing and scraping.","bench knife"],
+["A small, pointed blade for cutting vegetables.","paring knife"],
+["A device with a sharp edge.","knife"],
+["A heavy, curved blade for cutting meat.","butcher knife"],
+["A small object that performs a particular function.","utensil"]
+]},
+{unit:5,choices:["measuring cup","spoon","tongs","grater","cutting board","whisk","scoop"],items:[
+["A utensil with a deep bowl for measuring dry ingredients.","measuring cup"],
+["A utensil with a curved head.","spoon"],
+["A U-shaped tool that clamps around something.","tongs"],
+["A tool for cutting food into small pieces.","grater"],
+["A flat, wooden piece that protects countertops.","cutting board"],
+["A utensil with wire loops for stirring.","whisk"],
+["A round container for measuring various ingredients.","scoop"]
+]}
+];
+const NOTE_QUESTIONS=NOTE_GROUPS.flatMap(function(group){
+  return group.items.map(function(item,idx){
+    var fact=FACTS.find(function(f){return f.term===item[1];});
+    if(!fact)throw Error("Notebook term not in vocabulary: "+item[1]);
+    var choices=item[2]||group.choices,answer=choices.indexOf(item[1]);
+    if(answer<0)throw Error("Missing notebook answer: "+item[1]);
+    return {id:"notebook-u"+group.unit+"-"+(idx+1),factId:fact.id,unit:group.unit,
+      type:"DEFTERDEN · ORİJİNAL SORU",prompt:item[0],
+      hint:group.unit===2?"Defterindeki iki seçenekten doğru olanı seç.":"Defterindeki aynı eşleştirme grubundan cevabı seç.",
+      choices:choices.slice(),answer:answer,term:fact.term,tr:fact.tr,def:fact.def,
+      trDef:fact.trDef,note:fact.note};
+  });
+});
+
 const STORAGE_KEY="cookery-lab-study-v1";
 function loadProgress(){
   var initial={known:[],wrong:[],answered:0,correct:0};
@@ -128,6 +183,11 @@ function showSetup(){
   $("active-quiz").hidden=true;
   $("quiz-results").hidden=true;
   $("setup-warning").hidden=true;
+}
+function startNotebookQuiz(){
+  showView("quiz");
+  $("quiz-timer").value="0";
+  startTest(NOTE_QUESTIONS.slice());
 }
 function makeQueue(){
   var unit=$("quiz-unit").value,mode=$("quiz-mode").value;
@@ -229,7 +289,7 @@ function startMissedFromResult(){
   if(!session)return;
   var ids=session.answers.filter(function(a){return !a.correct;}).map(function(a){return a.q.id;});
   if(!ids.length)return;
-  var selected=QUESTIONS.filter(function(q){return ids.includes(q.id);});
+  var selected=session.queue.filter(function(q){return ids.includes(q.id);});
   startTest(shuffleArray(selected));
 }
 document.addEventListener("click",function(e){
@@ -249,6 +309,8 @@ document.addEventListener("click",function(e){
   if(ans&&activeView==="quiz"){answerQuestion(Number(ans.dataset.answer));}
 });
 $("hero-start").addEventListener("click",function(){showView("quiz");});
+$("hero-notebook").addEventListener("click",startNotebookQuiz);
+$("start-notebook").addEventListener("click",startNotebookQuiz);
 $("hero-study").addEventListener("click",function(){showView("study");});
 $("study-search").addEventListener("input",renderStudy);
 $("study-unit").addEventListener("change",renderStudy);
@@ -260,7 +322,7 @@ $("exit-quiz").addEventListener("click",function(){clearTimer();showSetup();});
 document.addEventListener("keydown",function(e){
   if(activeView!=="quiz"||!session||$("active-quiz").hidden)return;
   if(/^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement.tagName))return;
-  if(session.selected===null&&/^[1-4]$/.test(e.key)){answerQuestion(Number(e.key)-1);}
+  if(session.selected===null&&/^[1-7]$/.test(e.key)&&Number(e.key)<=currentQuestion().choices.length){answerQuestion(Number(e.key)-1);}
   else if(session.selected!==null&&e.key==="Enter"){e.preventDefault();nextQuestion();}
 });
 window.addEventListener("pagehide",clearTimer);
