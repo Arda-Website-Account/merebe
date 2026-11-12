@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Cookery English — 150 soruluk Türkçe destekli, çevrimdışı çalışabilen İngilizce mutfak terimleri testi.">
+  <title>Cookery English | 150 Soruluk Akıllı Çalışma</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div class="app-shell">
+    <header class="site-header">
+      <a href="#home" class="brand" data-nav="home" aria-label="Ana sayfa">
+        <span class="brand-mark" aria-hidden="true">C<span>✦</span></span>
+        <span class="brand-name">COOKERY<span class="brand-accent">LAB</span><small>ENGLISH ACADEMY</small></span>
+      </a>
+      <nav class="top-nav" aria-label="Sayfalar">
+        <button class="nav-btn active" data-nav="home" type="button">Genel bakış</button>
+        <button class="nav-btn" data-nav="study" type="button">Kelime kartları</button>
+        <button class="nav-btn" data-nav="quiz" type="button">Test merkezi</button>
+      </nav>
+      <div class="header-score"><span class="live-dot"></span><span id="header-learned">0</span><span class="header-score-suffix">/ 30 kelime</span></div>
+    </header>
+
+    <main>
+      <section id="view-home" class="view">
+        <div class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="eyebrow-dot"></span> 2 DEFTER SAYFASI · 5 ÜNİTE · 150 SORU</div>
+            <h1>Mutfak İngilizcesini<br><span class="gradient-text">gerçekten öğren.</span></h1>
+            <p>Notlarındaki kelimeleri ezberle, örnek cümlelerle pekiştir, test çöz ve yanlışlarını tekrar et. Her sorunun Türkçe açıklaması var.</p>
+            <div class="hero-actions">
+              <button type="button" class="btn btn-primary" id="hero-start">Teste başla <span aria-hidden="true">↗</span></button>
+              <button type="button" class="btn btn-secondary" id="hero-study">Önce kelimeleri öğren <span aria-hidden="true">→</span></button>
+            </div>
+            <div class="hero-tags"><span>✦ 4 seçenekli sorular</span><span>✦ Türkçe anlatım</span><span>✦ İnternetsiz çalışır</span></div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <div class="floating-symbol symbol-a">✦</div><div class="floating-symbol symbol-b">✳</div>
+            <div class="showcase-card"><div class="showcase-top"><span class="tiny-label">QUICK PREVIEW</span><span class="tiny-tag">UNIT 05</span></div>
+              <div class="showcase-icon">✳</div><h3>Whisk</h3><p>Tel çırpıcı</p>
+              <div class="showcase-separator"></div>
+              <div class="showcase-definition">A utensil with wire loops for stirring or beating ingredients.</div>
+              <div class="showcase-bottom"><span>VOCABULARY CARD</span><span>05 / 05 <span class="mini-arrow">↗</span></span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="metric-grid">
+          <div class="metric"><div class="metric-icon purple">◎</div><div class="metric-label">Soru havuzu</div><div class="metric-value" id="metric-questions">150</div><div class="metric-note">Özenle hazırlanmış alıştırma</div></div>
+          <div class="metric"><div class="metric-icon turquoise">▣</div><div class="metric-label">Çözülen soru</div><div class="metric-value" id="metric-answered">0</div><div class="metric-note">Tüm oturumların toplamı</div></div>
+          <div class="metric"><div class="metric-icon orange">◉</div><div class="metric-label">Doğruluk oranı</div><div class="metric-value" id="metric-accuracy">%0</div><div class="metric-note">Geçmiş performansın</div></div>
+          <div class="metric"><div class="metric-icon pink">↺</div><div class="metric-label">Tekrar edilecek</div><div class="metric-value" id="metric-missed">0</div><div class="metric-note">Yanlış cevapladığın sorular</div></div>
+        </div>
+
+        <div class="section-header"><div><div class="section-kicker">ÖĞRENME YOLCULUĞUN</div><h2>5 ünitenin tamamı</h2><p>Fotoğraflarındaki konulara göre hazırlandı.</p></div><button class="text-link" type="button" data-nav="study">Tüm kelimeler <span>↗</span></button></div>
+        <div id="unit-grid" class="unit-grid"></div>
+        <div class="foot-note"><span>⌁</span> Küçük bir not: Defterde işaretlenmiş bazı seçenekler kavramsal olarak karışabiliyor. Sorular, terimlerin doğru ve yaygın İngilizce anlamlarına göre hazırlanmıştır.</div>
+      </section>
+
+      <section id="view-study" class="view" hidden>
+        <div class="page-heading"><div class="section-kicker">ÖNCE ÖĞREN</div><h1>Kelime kartları<span class="gradient-text">.</span></h1><p>Bir karta tıkla: İngilizce ve Türkçe açıklama arasında geçiş yap. Bildiğin kelimeleri işaretle.</p></div>
+        <div class="toolbar">
+          <label class="search-box"><span aria-hidden="true">⌕</span><input id="study-search" type="search" autocomplete="off" placeholder="İngilizce veya Türkçe kelime ara…" aria-label="Kelime ara"></label>
+          <label class="select-wrap">Ünite <select id="study-unit"><option value="all">Tüm üniteler</option><option value="1">01 · Appliances</option><option value="2">02 · Kitchen staff</option><option value="3">03 · Restaurant staff</option><option value="4">04 · Knives</option><option value="5">05 · Utensils</option></select></label>
+        </div>
+        <div class="study-meta"><span id="study-count">30 kart</span><span>İpucu: Ön yüz / arka yüz için karta dokun.</span></div>
+        <div id="flashcard-grid" class="flashcard-grid"></div>
+        <div id="study-empty" class="empty-state" hidden>Bu aramaya uygun kelime bulunamadı.</div>
+      </section>
+
+      <section id="view-quiz" class="view" hidden>
+        <div class="page-heading"><div class="section-kicker">BİLGİNİ SINAMAYA HAZIR MISIN?</div><h1>Test merkezi<span class="gradient-text">.</span></h1><p>Konuyu ve soru sayısını seç. Her cevaptan sonra açıklamayı gör, yanlışlarını daha sonra tekrar et.</p></div>
+
+        <div id="quiz-setup" class="setup-layout">
+          <div class="panel setup-main">
+            <div class="panel-number">01 / TEST AYARLARI</div>
+            <h2>Testini özelleştir</h2>
+            <div class="field-block"><label for="quiz-unit">Hangi ünite?</label><select id="quiz-unit" class="big-select"><option value="all">Tüm üniteler · Karma test</option><option value="1">01 · Kitchen Appliances</option><option value="2">02 · Kitchen Staff</option><option value="3">03 · Restaurant Staff</option><option value="4">04 · Knives & Utensils</option><option value="5">05 · Kitchen Tools</option></select></div>
+            <div class="field-block"><label for="quiz-count">Kaç soru çözmek istersin?</label><select id="quiz-count" class="big-select"><option value="10">10 soru · Hızlı tur</option><option value="20">20 soru · Kısa test</option><option value="50">50 soru · Detaylı çalışma</option><option value="100">100 soru · Büyük deneme</option><option value="all" selected>Tüm sorular · Eksiksiz test</option></select></div>
+            <div class="field-block"><label for="quiz-mode">Soru türü</label><select id="quiz-mode" class="big-select"><option value="all">Tüm sorular</option><option value="missed">Yalnızca yanlış yaptıklarım</option></select></div>
+            <div class="field-block"><label for="quiz-timer">Soru başına süre</label><select id="quiz-timer" class="big-select"><option value="0">Süresiz · Öğrenme modu</option><option value="15">15 saniye · Zor</option><option value="30">30 saniye</option><option value="60">60 saniye</option></select></div>
+            <div class="check-row"><label><input type="checkbox" id="quiz-shuffle" checked><span> Soruları karıştır</span></label></div>
+            <div id="setup-warning" class="inline-warning" hidden></div>
+            <button type="button" class="btn btn-primary btn-wide" id="start-test">Testi başlat <span>↗</span></button>
+          </div>
+          <aside class="panel setup-aside"><div class="small-icon">✦</div><h3>Nasıl çalışır?</h3>
+            <div class="step"><span>01</span><div><b>Bir cevap seç</b><p>Her soruda dört seçenek bulunur.</p></div></div>
+            <div class="step"><span>02</span><div><b>Nedenini öğren</b><p>Türkçe açıklama ve doğru yanıt gösterilir.</p></div></div>
+            <div class="step"><span>03</span><div><b>Yanlışları tekrarla</b><p>Zorlandığın sorular otomatik kaydedilir.</p></div></div>
+            <div class="shortcut-note">⌨️ Klavye: <kbd>1</kbd>–<kbd>4</kbd> cevapla, <kbd>Enter</kbd> sonraki soruya geç.</div>
+          </aside>
+        </div>
+
+        <div id="active-quiz" class="quiz-layout" hidden>
+          <div class="quiz-top"><button type="button" class="quiet-btn" id="exit-quiz">← Testten çık</button><div id="quiz-progress-text">Soru 1 / 150</div><div id="quiz-timer-display" class="timer-chip" hidden>◷ <span id="timer-seconds">30</span>s</div></div>
+          <div class="progress-track"><div id="quiz-progress-bar" class="progress-fill" style="width:0%"></div></div>
+          <div class="question-card">
+            <div class="question-meta"><span id="question-unit" class="unit-chip">UNIT 01</span><span id="question-type">KELİME BİLGİSİ</span></div>
+            <h2 id="question-prompt"></h2><p id="question-hint" class="question-hint"></p>
+            <div id="answer-options" class="answer-options" role="group" aria-label="Cevap seçenekleri"></div>
+            <div id="answer-feedback" class="answer-feedback" role="status" aria-live="polite" hidden></div>
+            <div class="question-footer"><div id="live-score">✓ 0 doğru · ✕ 0 yanlış</div><button type="button" class="btn btn-primary" id="next-question" hidden>Sonraki soru <span>→</span></button></div>
+          </div>
+        </div>
+
+        <div id="quiz-results" class="results-layout" hidden>
+          <div class="panel results-panel"><div class="result-glow">✦</div><div class="section-kicker">TEST TAMAMLANDI</div><h2>Harika, çalışmaya devam!</h2><p>Sonuçlarını incele ve yanlış sorularınla yeniden pratik yap.</p>
+            <div class="result-score"><span id="result-percent">0%</span><small>DOĞRULUK</small></div>
+            <div class="result-stats"><span><b id="result-correct">0</b> doğru</span><span><b id="result-wrong">0</b> yanlış</span><span><b id="result-total">0</b> soru</span></div>
+            <div class="result-actions"><button type="button" class="btn btn-primary" id="retry-wrong">Yanlışlarımı tekrar et</button><button type="button" class="btn btn-secondary" id="new-test">Yeni test oluştur</button></div>
+          </div>
+          <div class="review-heading"><h3>Cevaplarını gözden geçir</h3><span id="review-count"></span></div>
+          <div id="review-list" class="review-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><span>COOKERY LAB · YOUR PERSONAL ENGLISH PRACTICE</span><span>Notlarından hazırlandı · Veriler yalnızca bu tarayıcıda saklanır.</span></footer>
+  </div>
+  <noscript>Bu çalışmanın çalışması için tarayıcında JavaScript etkin olmalıdır.</noscript>
+</body>
+</html>
