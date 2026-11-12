@@ -259,7 +259,7 @@ $("retry-wrong").addEventListener("click",startMissedFromResult);
 $("exit-quiz").addEventListener("click",function(){clearTimer();showSetup();});
 document.addEventListener("keydown",function(e){
   if(activeView!=="quiz"||!session||$("active-quiz").hidden)return;
-  if(/^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(document.activeElement.tagName)&&document.activeElement!==document.body)return;
+  if(/^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement.tagName))return;
   if(session.selected===null&&/^[1-4]$/.test(e.key)){answerQuestion(Number(e.key)-1);}
   else if(session.selected!==null&&e.key==="Enter"){e.preventDefault();nextQuestion();}
 });
